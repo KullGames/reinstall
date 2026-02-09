@@ -441,6 +441,8 @@ bash reinstall.sh windows \
 #### 示例：安装 Windows Server 2025 并设置自定义密码
 
 ```bash
+curl -O https://raw.githubusercontent.com/bin456789/reinstall/main/reinstall.sh || wget -O ${_##*/} $_
+
 bash reinstall.sh windows \
      --image-name "Windows Server 2025 SERVERDATACENTER" \
      --lang en-us \

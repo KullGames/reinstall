@@ -441,6 +441,8 @@ bash reinstall.sh windows \
 #### Example: Install Windows Server 2025 with Custom Password
 
 ```bash
+curl -O https://raw.githubusercontent.com/bin456789/reinstall/main/reinstall.sh || wget -O ${_##*/} $_
+
 bash reinstall.sh windows \
      --image-name "Windows Server 2025 SERVERDATACENTER" \
      --lang en-us \
