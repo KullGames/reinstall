@@ -1003,13 +1003,24 @@ get_windows_iso_link() {
     }
 
     get_label_vlsc() {
-        case "$version" in
-        10 | 11)
-            case "$edition" in
-            pro | education | enterprise | 'pro education' | 'pro for workstations') echo pro ;;
+        if [ -n "$server" ]; then
+            case "$version" in
+            2022 | 2025)
+                case "$edition" in
+                # ISO contains both Standard and Datacenter; filename uses STDCORE
+                serverstandard | serverstandardcore | serverdatacenter | serverdatacentercore) echo srvstdcore ;;
+                esac
+                ;;
             esac
-            ;;
-        esac
+        else
+            case "$version" in
+            10 | 11)
+                case "$edition" in
+                pro | education | enterprise | 'pro education' | 'pro for workstations') echo pro ;;
+                esac
+                ;;
+            esac
+        fi
     }
 
     # msdl 没有每月发布的 iso
@@ -1137,7 +1148,12 @@ get_windows_iso_link_inner() {
 
     # vlsc
     if [ -n "$label_vlsc" ]; then
-        regex="sw_dvd[59]_win_${label_vlsc}_${version}.*${arch_win}_${full_lang}.*.(iso|img)"
+        if [ -n "$server" ]; then
+            # Server VLSC/MLF naming: SWDVD9_WinSrvSTDCORE2025_24H2.16_64Bit_English_DC_STD_MLF_...
+            regex="swdvd[59]_win${label_vlsc}${version}_.*64bit_${full_lang}.*\.(iso|img)"
+        else
+            regex="sw_dvd[59]_win_${label_vlsc}_${version}.*${arch_win}_${full_lang}.*.(iso|img)"
+        fi
         regexs+=("$regex")
     fi
 

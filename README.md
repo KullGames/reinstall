@@ -438,6 +438,27 @@ bash reinstall.sh windows \
 - `--hold 1` 仅重启到安装环境，不运行安装，用于 SSH 登录验证网络连通性
 - `--hold 2` 用于在进入 Windows 官方安装程序之前，SSH 登录修改 `boot.wim`、`install.wim` 或者其它内容，硬盘挂载在 `/os`
 
+> [!TIP]
+>
+> 可通过多种方式监控安装进度（SSH、HTTP 80 端口、服务商 VNC、串口控制台）。
+>
+> 即使安装过程中出错，也可以通过 SSH 进行手动恢复。
+>
+> 安装环境是 **Alpine Linux**。如需重新运行脚本，请先执行 `apk add bash` 安装 bash。执行 `tail -fn+1 /reinstall.log` 可查看安装日志。
+
+#### 示例：安装 Windows Server 2025 并设置自定义密码
+
+```bash
+curl -O https://raw.githubusercontent.com/bin456789/reinstall/main/reinstall.sh || wget -O ${_##*/} $_
+
+bash reinstall.sh windows \
+     --image-name "Windows Server 2025 SERVERDATACENTER" \
+     --lang en-us \
+     --password "YourPassword123"
+```
+
+安装完成后，使用用户名 `administrator` 和您设置的密码通过 RDP（远程桌面）连接。RDP 默认已启用。
+
 #### 以下驱动会自动按需下载安装，无需手动添加
 
 - VirtIO ([社区版][virtio-virtio], [阿里云][virtio-aliyun], [腾讯云][virtio-qcloud], [GCP][virtio-gcp])

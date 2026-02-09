@@ -438,6 +438,27 @@ bash reinstall.sh windows \
 - `--hold 1` Reboot only into install environment, without running installer, only for SSH connect to test network connection.
 - `--hold 2` Allow SSH connections for modifying `boot.wim`, `install.wim` or other contents before rebooting into the official Windows installation program, with the disk mounted at `/os`.
 
+> [!TIP]
+>
+> Can monitor the progress through various methods (SSH, HTTP 80 port, VNC from server provider, serial console).
+>
+> Even if errors occur during the installation process, SSH is available for manual recovery.
+>
+> The installation environment is **Alpine Linux**. Use `apk add bash` to install bash if you need to re-run the script. Use `tail -fn+1 /reinstall.log` to view the installation log.
+
+#### Example: Install Windows Server 2025 with Custom Password
+
+```bash
+curl -O https://raw.githubusercontent.com/bin456789/reinstall/main/reinstall.sh || wget -O ${_##*/} $_
+
+bash reinstall.sh windows \
+     --image-name "Windows Server 2025 SERVERDATACENTER" \
+     --lang en-us \
+     --password "YourPassword123"
+```
+
+After installation, connect via RDP (Remote Desktop) using username `administrator` and the password you set. RDP is enabled by default.
+
 #### The following drivers will automatic download and install as needed, without the need for manual addition
 
 - VirtIO ([Community][virtio-virtio], [Alibaba Cloud][virtio-aliyun], [Tencent Cloud][virtio-qcloud], [GCP][virtio-gcp])
