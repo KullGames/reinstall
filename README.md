@@ -438,6 +438,14 @@ bash reinstall.sh windows \
 - `--hold 1` 仅重启到安装环境，不运行安装，用于 SSH 登录验证网络连通性
 - `--hold 2` 用于在进入 Windows 官方安装程序之前，SSH 登录修改 `boot.wim`、`install.wim` 或者其它内容，硬盘挂载在 `/os`
 
+> [!TIP]
+>
+> 可通过多种方式监控安装进度（SSH、HTTP 80 端口、服务商 VNC、串口控制台）。
+>
+> 即使安装过程中出错，也可以通过 SSH 进行手动恢复。
+>
+> 安装环境是 **Alpine Linux**。如需重新运行脚本，请先执行 `apk add bash` 安装 bash。执行 `tail -fn+1 /reinstall.log` 可查看安装日志。
+
 #### 示例：安装 Windows Server 2025 并设置自定义密码
 
 ```bash
